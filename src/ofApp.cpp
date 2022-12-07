@@ -10,8 +10,7 @@ void ofApp::setup(){
 	//
     
     //cup Modell laden
-    cup.loadModel("Cup.3ds", 200);	
-	cup2.loadModel("Cup.3ds", 200);
+	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
 
     
 
@@ -49,7 +48,7 @@ void ofApp::update(){
 void ofApp::draw(){
     
    
-   
+	
     gui.draw();
     
     ofEnableDepthTest();
@@ -61,14 +60,31 @@ void ofApp::draw(){
     //
     camera.begin();
     ofNoFill();
-    cup.drawFaces();
-	cup2.drawFaces();
+	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
 
     
     //draw cup position from gui values
-    cup.setPosition(ofxVec2Slider_position->x, ofxVec2Slider_position->y, 100);
-	cup2.setPosition(ofxVec2Slider_position->x + 380, ofxVec2Slider_position->y, 100);
+	
+	int buildCount = 0;
 
+	for (int i = 0; i < 4; i++) {
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad), ofxVec2Slider_position->y, 100);
+		buildCount++;
+	}
+	for (int i = 0; i < 3; i++) {
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + (i*cupRad), ofxVec2Slider_position->y + (0.85*cupRad), 100);
+		buildCount++;
+	}
+	for (int i = 0; i < 2; i++) {
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad) + cupRad, ofxVec2Slider_position->y + (2*(0.85*cupRad)), 100);
+		buildCount++;
+	}
+
+	cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + cupRad, ofxVec2Slider_position->y + (3*(0.85*cupRad)), 100);
+	
     
     //draw cup color from gui values
     ofSetColor(ofxVec4Slider_color->x, ofxVec4Slider_color->y, ofxVec4Slider_color->z, ofxVec4Slider_color->w);
@@ -84,8 +100,7 @@ void ofApp::draw(){
 
 
     //draw resized cup
-    cup.setScale(0.5, 0.5, 0.5);
-	cup2.setScale(0.5, 0.5, 0.5);
+    for(int i = 0; i < cupNr; i++) cup[i].setScale(0.5, 0.5, 0.5);
     
     
     

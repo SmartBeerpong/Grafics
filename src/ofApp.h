@@ -35,8 +35,10 @@ class ofApp : public ofBaseApp{
 	
     
     //3d Modell cup laden
-    ofxAssimpModelLoader cup;
-	ofxAssimpModelLoader cup2;
+	int cupNr = 10;
+	int cupRad = 375;
+	ofxAssimpModelLoader cup[10];
+	ofxAssimpModelLoader test[3][3];
 
     
 
