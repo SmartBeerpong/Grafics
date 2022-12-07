@@ -7,24 +7,20 @@ void ofApp::setup(){
 
     //
     // CUP SETUP
-    //
 	//
     
     //cup Modell laden
-    cup.loadModel("Cup.3ds", 200);
+    cup.loadModel("Cup.3ds", 200);	
 	cup2.loadModel("Cup.3ds", 200);
 
     
 
     //gui cup position
-	gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));
-    
-	//gui test label
-	
+	gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
 
 
     //gui cup color
-    gui.add(ofxVec4Slider_color.setup("Cup Color", ofVec4f(0, 0, 0, 0), ofVec4f(0,0,0,0), ofVec4f(255,255,255, 255))); //alle 4 werte von 0.0 bis 255.0 in float schritten
+		//gui.add(ofxVec4Slider_color.setup("Cup Color", ofVec4f(0, 0, 0, 0), ofVec4f(0,0,0,0), ofVec4f(255,255,255, 255))); //alle 4 werte von 0.0 bis 255.0 in float schritten
 
     //
     // SCENE SETUP
