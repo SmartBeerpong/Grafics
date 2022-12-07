@@ -8,6 +8,7 @@ void ofApp::setup(){
     //
     // CUP SETUP
     //
+	//
     
     //cup Modell laden
     cup.loadModel("Cup.3ds", 200);
