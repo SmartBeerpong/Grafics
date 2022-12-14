@@ -5,8 +5,9 @@ void ofApp::setup(){
 
     gui.setup();
 
-	//ofAddListener(arduino.EInitialized, this, &ofApp.setupArduino);
-	arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
+	//ARDUINO ZEUGS -- WIP
+		//ofAddListener(arduino.EInitialized, this, &ofApp.setupArduino);
+		arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
@@ -16,9 +17,8 @@ void ofApp::setup(){
 
     //gui cup position
 	//Habe die Schieber der Becher rausgenommen, da die Becher an festen Positionen stehen und nicht mehr verändert werden
-
-	//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
-	gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
+		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
+		gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 
 
 	//CAMERA SETUPs
@@ -53,38 +53,36 @@ void ofApp::draw(){
 	camera.begin();
 	ofNoFill();
     
-    // DRAW CUP
+    // DRAW OBJECTS
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
-
-	//DRAW SPHERE
-	ball.drawFaces(); //not working?
+	ball.drawFaces();
 
     
 	//
 	//DRAW CUPS  START
 	//
 
-	int buildCount = 0;
-
 	//Hab die Schieber entfernt, da die Becher immer an der selben Position stehen
 
-	for (int i = 0; i < 4; i++) {
-		//if (buildCount > cupNr) break;
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad), ofxVec2Slider_position->y, 100);
-		buildCount++;
-	}
-	for (int i = 0; i < 3; i++) {
-		//if (buildCount > cupNr) break;
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + (i*cupRad), ofxVec2Slider_position->y + (0.85*cupRad), 100);
-		buildCount++;
-	}
-	for (int i = 0; i < 2; i++) {
-		//if (buildCount > cupNr) break;
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad) + cupRad, ofxVec2Slider_position->y + (2 * (0.85*cupRad)), 100);
-		buildCount++;
-	}
+	int buildCount = 0;
 
-	cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + cupRad, ofxVec2Slider_position->y + (3 * (0.85*cupRad)), 100);
+	//4er Reihe
+	for (int i = 0; i < 4; i++) {
+		cup[buildCount].setPosition((i*cupRad), 0, 100);
+		buildCount++;
+	}
+	//3er Reihe
+	for (int i = 0; i < 3; i++) {
+		cup[buildCount].setPosition((0.5*cupRad) + (i*cupRad), (0.85*cupRad), 100);
+		buildCount++;
+	}
+	//2er Reihe
+	for (int i = 0; i < 2; i++) {
+		cup[buildCount].setPosition((i*cupRad) + cupRad, (2 * (0.85*cupRad)), 100);
+		buildCount++;
+	}
+	//letzter
+	cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3 * (0.85*cupRad)), 100);
 
 
 	//
