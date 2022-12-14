@@ -5,6 +5,8 @@ void ofApp::setup(){
 
     gui.setup();
 
+	arduino.connect("/dev/cu.usbserial-01F96E35", 9600);
+
     //
     // CUP SETUP
 	//
@@ -37,6 +39,10 @@ void ofApp::setup(){
 
 }
 
+
+void ofApp::setupArduino(const int & version) {
+	// Arduino setup tasks will go here
+}
 
 //--------------------------------------------------------------
 void ofApp::update(){
