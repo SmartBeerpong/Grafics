@@ -34,11 +34,13 @@ class ofApp : public ofBaseApp{
 
     
     ofxVec2Slider ofxVec2Slider_position; //x y
+	ofxVec3Slider ofxVec3Slider_position_sphere; //x y z
     ofxVec3Slider vec3Slider_light; //x y z
     ofxVec4Slider ofxVec4Slider_color; //red green blue transparency
 
 	//ARDUINO
 	ofArduino arduino;
+	
 	
     
     //3d Modell cup laden

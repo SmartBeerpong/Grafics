@@ -5,31 +5,20 @@ void ofApp::setup(){
 
     gui.setup();
 
+	//ofAddListener(arduino.EInitialized, this, &ofApp.setupArduino);
 	arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
-
-    //
-    // CUP SETUP
-	//
     
-    //cup Modell laden
+    //cup Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
-
-    
 
     //gui cup position
 	gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
+	gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 
-
-    //gui cup color
-		//gui.add(ofxVec4Slider_color.setup("Cup Color", ofVec4f(0, 0, 0, 0), ofVec4f(0,0,0,0), ofVec4f(255,255,255, 255))); //alle 4 werte von 0.0 bis 255.0 in float schritten
-
-    //
     // SCENE SETUP
-    //
 
-	//
-	//CAMERA SETUP
-	//
+
+	//CAMERA SETUPs
 	//camera.enableOrtho();
 	//camera.setupPerspective(true, 60.0, 0.0, 1000.0, ofVec2f(0, 6));
     
@@ -41,7 +30,7 @@ void ofApp::setup(){
 
 
 void ofApp::setupArduino(const int & version) {
-	// Arduino setup tasks will go here
+	//ofRemoveListener(arduino.EInitialized, this, &ofApp.setupArduino);
 }
 
 //--------------------------------------------------------------
@@ -52,44 +41,52 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    
-   
 	
     gui.draw();
     
     ofEnableDepthTest();
     light.enable();
 
+	camera.begin();
+	ofNoFill();
     
-    //
     // DRAW CUP
-    //
-    camera.begin();
-    ofNoFill();
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
 
+	//DRAW SPHERE
+	ofDrawSphere(50); //not working?
+
     
-    //draw cup position from gui values
-	
+	//
+	//DRAW CUPS  START
+	//
+
 	int buildCount = 0;
 
+	//4 in a row
 	for (int i = 0; i < 4; i++) {
-		//if (buildCount > cupNr) break;
 		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad), ofxVec2Slider_position->y, 100);
 		buildCount++;
 	}
+
+	//3 in a row
 	for (int i = 0; i < 3; i++) {
-		//if (buildCount > cupNr) break;
 		cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + (i*cupRad), ofxVec2Slider_position->y + (0.85*cupRad), 100);
 		buildCount++;
 	}
+
+	//2 in a row
 	for (int i = 0; i < 2; i++) {
-		//if (buildCount > cupNr) break;
 		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad) + cupRad, ofxVec2Slider_position->y + (2*(0.85*cupRad)), 100);
 		buildCount++;
 	}
 
+	//last one
 	cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + cupRad, ofxVec2Slider_position->y + (3*(0.85*cupRad)), 100);
+
+	//
+	//DRAW CUPS  END
+	//
 	
     
     //draw cup color from gui values
@@ -97,17 +94,14 @@ void ofApp::draw(){
     
     //
     // DRAW SCENE
-    //
-    
+    //    
     
     //draw light position
     light.setPosition(vec3Slider_light->x, vec3Slider_light->y, vec3Slider_light->z);
-    
 
 
     //draw resized cup
     for(int i = 0; i < cupNr; i++) cup[i].setScale(0.5, 0.5, 0.5);
-    
     
     
     //was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
