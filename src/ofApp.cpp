@@ -18,7 +18,7 @@ void ofApp::setup(){
     //gui cup position
 	//Habe die Schieber der Becher rausgenommen, da die Becher an festen Positionen stehen und nicht mehr verändert werden
 		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
-		gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
+		gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 
 
 	//CAMERA SETUPs
