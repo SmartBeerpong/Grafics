@@ -5,7 +5,7 @@ void ofApp::setup(){
 
     gui.setup();
 
-	arduino.connect("/dev/cu.usbserial-01F96E35", 9600);
+	arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
 
     //
     // CUP SETUP
