@@ -68,26 +68,24 @@ void ofApp::draw(){
 
 	//Hab die Schieber entfernt, da die Becher immer an der selben Position stehen
 
-	//4 in a row
 	for (int i = 0; i < 4; i++) {
-		cup[buildCount].setPosition((i*cupRad), 0, 0);
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad), ofxVec2Slider_position->y, 100);
 		buildCount++;
 	}
-
-	//3 in a row
 	for (int i = 0; i < 3; i++) {
-		cup[buildCount].setPosition((0.5*cupRad) + (i*cupRad), (0.85*cupRad), 0);
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + (i*cupRad), ofxVec2Slider_position->y + (0.85*cupRad), 100);
 		buildCount++;
 	}
-
-	//2 in a row
 	for (int i = 0; i < 2; i++) {
-		cup[buildCount].setPosition((i*cupRad) + cupRad, (2*(0.85*cupRad)), 0);
+		//if (buildCount > cupNr) break;
+		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad) + cupRad, ofxVec2Slider_position->y + (2 * (0.85*cupRad)), 100);
 		buildCount++;
 	}
 
-	//last one
-	cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3*(0.85*cupRad)), 0);
+	cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + cupRad, ofxVec2Slider_position->y + (3 * (0.85*cupRad)), 100);
+
 
 	//
 	//DRAW CUPS  END
