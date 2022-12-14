@@ -8,19 +8,22 @@ void ofApp::setup(){
 	//ofAddListener(arduino.EInitialized, this, &ofApp.setupArduino);
 	arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
     
-    //cup Modelle laden
+    //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
+	ball.loadModel("ball.stl");
+
+
 
     //gui cup position
-	gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
-	gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
+	//Habe die Schieber der Becher rausgenommen, da die Becher an festen Positionen stehen und nicht mehr verändert werden
 
-    // SCENE SETUP
+	//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
+	gui.add(ofxVec3Slider_position_sphere.setup("Shpere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 
 
 	//CAMERA SETUPs
-	//camera.enableOrtho();
-	//camera.setupPerspective(true, 60.0, 0.0, 1000.0, ofVec2f(0, 6));
+		//camera.enableOrtho();
+		//camera.setupPerspective(true, 60.0, 0.0, 1000.0, ofVec2f(0, 6));
     
     //light setup
     gui.add(vec3Slider_light.setup("Light Position", ofVec3f(0, 0, 0), ofVec3f(0,0, 0), ofVec3f(ofGetWidth(), ofGetHeight(), 100)));
@@ -54,7 +57,7 @@ void ofApp::draw(){
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
 
 	//DRAW SPHERE
-	ofDrawSphere(50); //not working?
+	ball.drawFaces(); //not working?
 
     
 	//
@@ -63,30 +66,35 @@ void ofApp::draw(){
 
 	int buildCount = 0;
 
+	//Hab die Schieber entfernt, da die Becher immer an der selben Position stehen
+
 	//4 in a row
 	for (int i = 0; i < 4; i++) {
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad), ofxVec2Slider_position->y, 100);
+		cup[buildCount].setPosition((i*cupRad), 0, 0);
 		buildCount++;
 	}
 
 	//3 in a row
 	for (int i = 0; i < 3; i++) {
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + (i*cupRad), ofxVec2Slider_position->y + (0.85*cupRad), 100);
+		cup[buildCount].setPosition((0.5*cupRad) + (i*cupRad), (0.85*cupRad), 0);
 		buildCount++;
 	}
 
 	//2 in a row
 	for (int i = 0; i < 2; i++) {
-		cup[buildCount].setPosition(ofxVec2Slider_position->x + (i*cupRad) + cupRad, ofxVec2Slider_position->y + (2*(0.85*cupRad)), 100);
+		cup[buildCount].setPosition((i*cupRad) + cupRad, (2*(0.85*cupRad)), 0);
 		buildCount++;
 	}
 
 	//last one
-	cup[buildCount].setPosition(ofxVec2Slider_position->x + (0.5*cupRad) + cupRad, ofxVec2Slider_position->y + (3*(0.85*cupRad)), 100);
+	cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3*(0.85*cupRad)), 0);
 
 	//
 	//DRAW CUPS  END
 	//
+
+	//ball Position - dynamisch durch Schieber
+	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
 	
     
     //draw cup color from gui values
@@ -102,6 +110,7 @@ void ofApp::draw(){
 
     //draw resized cup
     for(int i = 0; i < cupNr; i++) cup[i].setScale(0.5, 0.5, 0.5);
+	ball.setScale(0.2, 0.2, 0.2);
     
     
     //was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
