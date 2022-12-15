@@ -21,7 +21,7 @@ void ofApp::setup(){
 		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
 		gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 		gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
-		gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(-100, -100, 200)));
+		//gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(-100, -100, 200)));
 
 
 	//CAMERA SETUPs
@@ -97,7 +97,7 @@ void ofApp::draw(){
 	//ball Position - dynamisch durch Schieber
 	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
 
-	//table position
+	//table position - Werte sind durch try and error entstanden und müssen eig nicht mehr verändert werden
 	table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
 	table.setRotation(1, 90, 0, 0, 90);
 	
