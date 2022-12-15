@@ -32,10 +32,11 @@ class ofApp : public ofBaseApp{
     //GUI
     ofxPanel gui;
 
-    
+	ofxFloatSlider ofxFloatSlider_table;
     ofxVec2Slider ofxVec2Slider_position; //x y
 	ofxVec3Slider ofxVec3Slider_position_sphere; //x y z
     ofxVec3Slider vec3Slider_light; //x y z
+	ofxVec3Slider ofxVec3Slider_position_table;
     ofxVec4Slider ofxVec4Slider_color; //red green blue transparency
 
 	//ARDUINO
@@ -45,10 +46,11 @@ class ofApp : public ofBaseApp{
     
     //3d Modell cup laden
 	int cupNr = 10;
-	int cupRad = 375;
+	int cupRad = 300; //for scale 0.3: 225; for scale 0.5: 375
 	ofxAssimpModelLoader cup[10];
 	ofxAssimpModelLoader test[3][3];
 	ofxAssimpModelLoader ball;
+	ofxAssimpModelLoader table;
 
     
 

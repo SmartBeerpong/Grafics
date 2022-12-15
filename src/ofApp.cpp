@@ -12,6 +12,7 @@ void ofApp::setup(){
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
 	ball.loadModel("ball.stl");
+	table.loadModel("table.stl");
 
 
 
@@ -19,6 +20,8 @@ void ofApp::setup(){
 	//Habe die Schieber der Becher rausgenommen, da die Becher an festen Positionen stehen und nicht mehr verändert werden
 		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
 		gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
+		gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
+		gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(-100, -100, 200)));
 
 
 	//CAMERA SETUPs
@@ -56,6 +59,7 @@ void ofApp::draw(){
     // DRAW OBJECTS
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
 	ball.drawFaces();
+	table.drawFaces();
 
     
 	//
@@ -92,6 +96,10 @@ void ofApp::draw(){
 
 	//ball Position - dynamisch durch Schieber
 	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
+
+	//table position
+	table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
+	table.setRotation(1, 90, 0, 0, 90);
 	
     
     //draw cup color from gui values
@@ -106,12 +114,15 @@ void ofApp::draw(){
 
 
     //draw resized cup
-    for(int i = 0; i < cupNr; i++) cup[i].setScale(0.5, 0.5, 0.5);
+    for(int i = 0; i < cupNr; i++) cup[i].setScale(0.4, 0.4, 0.4);
 	ball.setScale(0.2, 0.2, 0.2);
-    
-    
-    //was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
-    camera.end();
+	//Table slider zum resizing
+	table.setScale(ofxFloatSlider_table, ofxFloatSlider_table, ofxFloatSlider_table);
+
+
+
+	//was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
+	camera.end();
     light.disable();
     ofDisableDepthTest();
     
