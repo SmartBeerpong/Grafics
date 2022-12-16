@@ -5,6 +5,8 @@
 #include "ofxGui.h"
 #include "ofArduino.h"
 #include "ofEventUtils.h"
+#include "ofSerial.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -30,7 +32,7 @@ class ofApp : public ofBaseApp{
     
     //GUI
     ofxPanel gui;
-
+	ofxVec3Slider ofxVec3Slider_cam;
 	ofxFloatSlider ofxFloatSlider_table;
     ofxVec2Slider ofxVec2Slider_position; //x y
 	ofxVec3Slider ofxVec3Slider_position_sphere; //x y z
@@ -38,16 +40,20 @@ class ofApp : public ofBaseApp{
 	ofxVec3Slider ofxVec3Slider_position_table;
     ofxVec4Slider ofxVec4Slider_color; //red green blue transparency
 
+
 	//ARDUINO
-	ofArduino ard;
-	
+	ofArduino arduino;
+	int byteRead = 0;
+	Firmata_Serial_Ports port; //ADD PORT!!!
+	string readtest;
+	ofSerial serial;
+	bool serialMessage = false;
 	
     
     //3d Modell cup laden
 	int cupNr = 10;
 	int cupRad = 300; //for scale 0.3: 225; for scale 0.5: 375
 	ofxAssimpModelLoader cup[10];
-	ofxAssimpModelLoader test[3][3];
 	ofxAssimpModelLoader ball;
 	ofxAssimpModelLoader table;
 
@@ -65,7 +71,8 @@ class ofApp : public ofBaseApp{
     
     //unused
     
-    ofxIntSlider intSlider;
+    
+	ofxIntSlider intSlider;
     ofxFloatSlider floatSlider;
 
     ofxToggle toggle;
