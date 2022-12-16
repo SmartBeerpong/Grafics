@@ -48,6 +48,11 @@ class ofApp : public ofBaseApp{
 	string readtest;
 	ofSerial serial;
 	bool serialMessage = false;
+
+	//3d Model texture
+	ofTexture tex;
+	ofPoint points[4];
+	int cornerIndex = 0;
 	
     
     //3d Modell cup laden
@@ -56,7 +61,8 @@ class ofApp : public ofBaseApp{
 	ofxAssimpModelLoader cup[10];
 	ofxAssimpModelLoader ball;
 	ofxAssimpModelLoader table;
-
+	ofSpherePrimitive sphere;
+or
     
 
     //camera und licht

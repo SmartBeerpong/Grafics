@@ -3,26 +3,28 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
+	//standard
     gui.setup();
+	ofDisableAlphaBlending();
+	ofEnableDepthTest();
+	ofDisableArbTex();	
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
 	ball.loadModel("ball.stl");
 	table.loadModel("table.stl");
 
-
+	//textur
+	ofLoadImage(tex, "tableTex.png");
 
     //gui slider for position
 	//Habe ein paar Schieber rausgenommen, da die Objekte nicht mehr verändert werden
-		gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
-		//gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
+	gui.add(vec3Slider_light.setup("Light Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(), 100)));
+	gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
+	//gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
 		//gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(0,0,0)));
 		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));
 		//gui.add(ofxVec3Slider_cam.setup("Cam Pos", ofVec3f(0,0, 0), ofVec3f(0,0, 0), ofVec3f(0,0, 0)));
-
-	//light setup
-	gui.add(vec3Slider_light.setup("Light Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(), 100)));
-
 
 	//CAMERA SETUPs
 		//camera.enableOrtho();
@@ -37,7 +39,7 @@ void ofApp::setup(){
     
 }
 
-
+//--------------------------------------------------------------
 void ofApp::setupArduino(const int & version) {
 
 	//TESTING
@@ -50,7 +52,6 @@ void ofApp::setupArduino(const int & version) {
 
 }
 
-
 //--------------------------------------------------------------
 void ofApp::update(){
 
@@ -62,23 +63,26 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
-    gui.draw();
-    
-    ofEnableDepthTest();
-    light.enable();
 
+	//standard
+    gui.draw();
+    light.enable();
 	camera.begin();
 	ofNoFill();
     
     // INITIALIZE OBJECTS
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
-	ball.drawFaces();
 	table.drawFaces();
+	ball.drawFaces();
+
+	//texture
+	tex.bind();
+	sphere.draw();
+	tex.unbind();
 
     
 	//
-	//DRAW OBJECTS START
+	//POSITION OBJECTS - START
 	//
 			
 		int buildCount = 0;
@@ -101,30 +105,25 @@ void ofApp::draw(){
 		//letzter
 		cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3 * (0.85*cupRad)), 100);
 
-	//ball Position - dynamisch durch Schieber
-	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
-
-	//table position - Werte sind durch try and error entstanden und müssen eig nicht mehr verändert werden
-	table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
+		//ball Position - dynamisch durch Schieber
+		ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
+		table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
+		table.setRotation(1, 90, 0, 0, 90);
 
 	//
-	//DRAW OBJECTS END
+	//POSITION OBJECTS - END
 	//
 	
-	//Edit Objects
+	//scale objects
 	for (int i = 0; i < cupNr; i++) cup[i].setScale(0.4, 0.4, 0.4);
-
 	ball.setScale(0.2, 0.2, 0.2);
-
 	table.setScale(6, 6, 6);
-	table.setRotation(1, 90, 0, 0, 90);
 
     //Color slider init
     ofSetColor(ofxVec4Slider_color->x, ofxVec4Slider_color->y, ofxVec4Slider_color->z, ofxVec4Slider_color->w);
     
     //draw light position
     light.setPosition(vec3Slider_light->x, vec3Slider_light->y, vec3Slider_light->z);
-
 	
 	//was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
 	camera.end();
@@ -166,7 +165,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 
-	serialMessage = true;
+	//serialMessage = true;
 
 }
 
