@@ -6,7 +6,6 @@
 #include "ofArduino.h"
 #include "ofEventUtils.h"
 
-
 class ofApp : public ofBaseApp{
 
     public:
@@ -40,7 +39,7 @@ class ofApp : public ofBaseApp{
     ofxVec4Slider ofxVec4Slider_color; //red green blue transparency
 
 	//ARDUINO
-	ofArduino arduino;
+	ofArduino ard;
 	
 	
     

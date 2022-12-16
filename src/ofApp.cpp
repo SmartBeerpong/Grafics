@@ -3,11 +3,13 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
+	ofAddListener(ard.EInitialized, this, &ofApp::setupArduino);
+
+
     gui.setup();
 
 	//ARDUINO ZEUGS -- WIP
-		//ofAddListener(arduino.EInitialized, this, &ofApp.setupArduino);
-		arduino.connect("/dev/cu.usbserial-01F96E35", 115200);
+	ard.connect("/dev/cu.usbserial-01F96E35", 115200);
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
@@ -36,8 +38,9 @@ void ofApp::setup(){
 
 
 void ofApp::setupArduino(const int & version) {
-	//ofRemoveListener(arduino.EInitialized, this, &ofApp.setupArduino);
+	ofRemoveListener(ard.EInitialized, this, &ofApp::setupArduino);
 }
+
 
 //--------------------------------------------------------------
 void ofApp::update(){
