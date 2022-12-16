@@ -3,13 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	ofAddListener(ard.EInitialized, this, &ofApp::setupArduino);
-
-
     gui.setup();
 
 	//ARDUINO ZEUGS -- WIP
 	ard.connect("/dev/cu.usbserial-01F96E35", 115200);
+	ofAddListener(ard.EInitialized, this, &ofApp::setupArduino);
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
@@ -18,12 +16,12 @@ void ofApp::setup(){
 
 
 
-    //gui cup position
-	//Habe die Schieber der Becher rausgenommen, da die Becher an festen Positionen stehen und nicht mehr verändert werden
-		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
+    //gui slider for position
+	//Habe die Schieber der Becher + TTisch rausgenommen, das sie an festen Positionen stehen und nicht mehr verändert werden
 		gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
 		gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
 		//gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(-100, -100, 200)));
+		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));	
 
 
 	//CAMERA SETUPs
