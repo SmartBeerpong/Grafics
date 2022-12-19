@@ -62,7 +62,7 @@ class ofApp : public ofBaseApp{
 	ofxAssimpModelLoader ball;
 	ofxAssimpModelLoader table;
 	ofSpherePrimitive sphere;
-or
+
     
 
     //camera und licht

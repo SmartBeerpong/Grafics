@@ -7,15 +7,18 @@ void ofApp::setup(){
     gui.setup();
 	ofDisableAlphaBlending();
 	ofEnableDepthTest();
-	ofDisableArbTex();	
+	//ofDisableArbTex();	
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
 	ball.loadModel("ball.stl");
 	table.loadModel("table.stl");
 
+	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
+
+
 	//textur
-	ofLoadImage(tex, "tableTex.png");
+	//ofLoadImage(tex, "tableTex.png");
 
     //gui slider for position
 	//Habe ein paar Schieber rausgenommen, da die Objekte nicht mehr verändert werden
@@ -68,7 +71,7 @@ void ofApp::draw(){
     gui.draw();
     light.enable();
 	camera.begin();
-	ofNoFill();
+	//ofNoFill();
     
     // INITIALIZE OBJECTS
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
@@ -76,9 +79,9 @@ void ofApp::draw(){
 	ball.drawFaces();
 
 	//texture
-	tex.bind();
-	sphere.draw();
-	tex.unbind();
+	//tex.bind();
+	//sphere.draw();
+	//tex.unbind();
 
     
 	//
@@ -106,7 +109,6 @@ void ofApp::draw(){
 		cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3 * (0.85*cupRad)), 100);
 
 		//ball Position - dynamisch durch Schieber
-		ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
 		table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
 		table.setRotation(1, 90, 0, 0, 90);
 
@@ -116,7 +118,7 @@ void ofApp::draw(){
 	
 	//scale objects
 	for (int i = 0; i < cupNr; i++) cup[i].setScale(0.4, 0.4, 0.4);
-	ball.setScale(0.2, 0.2, 0.2);
+	ball.setScale(0.15, 0.15, 0.15);
 	table.setScale(6, 6, 6);
 
     //Color slider init
@@ -128,7 +130,7 @@ void ofApp::draw(){
 	//was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
 	camera.end();
     light.disable();
-    ofDisableDepthTest();
+    //ofDisableDepthTest();
     
 }
 
@@ -145,6 +147,41 @@ void ofApp::keyPressed(int key){
         string filename = "screenshot_" + ofGetTimestampString() + ".png";
         imgScreenshot.save(filename);
     }
+
+	int d = cupRad / 2;
+
+	if (key == '1') {
+		//for(int i=0; i<10; i++)	cout << (cup[i].getPosition()) << endl;
+		ball.setPosition(0-d, 0-d, 100);
+	}
+
+	if (key == '2') {
+		ball.setPosition(300-d, 0-d, 100);
+	}
+	if (key == '3') {
+		ball.setPosition(600-d, 0-d, 100);
+	}
+	if (key == '4') {
+		ball.setPosition(900-d, 0-d, 100);
+	}
+	if (key == '5') {
+		ball.setPosition(150-d, 255-d, 100);
+	}
+	if (key == '6') {
+		ball.setPosition(450-d, 255-d, 100);
+	}
+	if (key == '7') {
+		ball.setPosition(750-d, 255-d, 100);
+	}
+	if (key == '8') {
+		ball.setPosition(300-d, 510-d, 100);
+	}
+	if (key == '9') {
+		ball.setPosition(600-d, 510-d, 100);
+	}
+	if (key == '0') {
+		ball.setPosition(450-d, 765-d, 100);
+	}
 }
 
 //--------------------------------------------------------------
