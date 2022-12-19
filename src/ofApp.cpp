@@ -148,8 +148,11 @@ void ofApp::keyPressed(int key){
         imgScreenshot.save(filename);
     }
 
-	int d = cupRad / 2;
+	//alle Posotionen sind hard-coded weil die getPosition() ein ofPoint Objekt zurückgibt, aber setPosition() floats benötigt
+	//ofPoints kann man aber nicht so einfach in floats umwandeln
 
+	int d = cupRad / 2; //tbh hab mir das sehr eifnach gemacht haha -> ball ist in der mitte nicht an der Ecke der Becher
+	
 	if (key == '1') {
 		//for(int i=0; i<10; i++)	cout << (cup[i].getPosition()) << endl;
 		ball.setPosition(0-d, 0-d, 100);
