@@ -61,6 +61,9 @@ void ofApp::update(){
 	//WIP - aulesen des SerialPorts
 	arduino.update();
 	arduino.serialRead(port, byteRead);
+
+	if(bz > -100)	bz -= 4;
+
 	
 }
 
@@ -112,6 +115,8 @@ void ofApp::draw(){
 		table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
 		table.setRotation(1, 90, 0, 0, 90);
 
+		ball.setPosition(bx, by, bz);
+
 	//
 	//POSITION OBJECTS - END
 	//
@@ -155,35 +160,67 @@ void ofApp::keyPressed(int key){
 	
 	if (key == '1') {
 		//for(int i=0; i<10; i++)	cout << (cup[i].getPosition()) << endl;
-		ball.setPosition(0-d, 0-d, 100);
+		//ball.setPosition(0-d, 0-d, 100);
+		bx = 0-d;
+		by = 0-d;
+		bz = 100;
 	}
 
 	if (key == '2') {
-		ball.setPosition(300-d, 0-d, 100);
+		//ball.setPosition(300-d, 0-d, 100);
+		bx = 300 - d;
+		by = 0 - d;
+		bz = 100;
 	}
 	if (key == '3') {
-		ball.setPosition(600-d, 0-d, 100);
+		//ball.setPosition(600-d, 0-d, 100);
+		bx = 600 - d;
+		by = 0 - d;
+		bz = 100;
+
 	}
 	if (key == '4') {
-		ball.setPosition(900-d, 0-d, 100);
+		//ball.setPosition(900-d, 0-d, 100);
+		bx = 900 - d;
+		by = 0 - d;
+		bz = 100;
+
 	}
 	if (key == '5') {
-		ball.setPosition(150-d, 255-d, 100);
+		//ball.setPosition(150-d, 255-d, 100);
+		bx = 150 - d;
+		by = 255 - d;
+		bz = 100;
 	}
 	if (key == '6') {
-		ball.setPosition(450-d, 255-d, 100);
+		//ball.setPosition(450-d, 255-d, 100);
+		bx = 450 - d;
+		by = 255 - d;
+		bz = 100;
 	}
 	if (key == '7') {
-		ball.setPosition(750-d, 255-d, 100);
+		//ball.setPosition(750-d, 255-d, 100);
+		bx = 750 - d;
+		by = 255 - d;
+		bz = 100;
 	}
 	if (key == '8') {
-		ball.setPosition(300-d, 510-d, 100);
+		//ball.setPosition(300-d, 510-d, 100);
+		bx = 300 - d;
+		by = 510 - d;
+		bz = 100;
 	}
 	if (key == '9') {
-		ball.setPosition(600-d, 510-d, 100);
+		//ball.setPosition(600-d, 510-d, 100);
+		bx = 600 - d;
+		by = 510 - d;
+		bz = 100;
 	}
 	if (key == '0') {
-		ball.setPosition(450-d, 765-d, 100);
+		//ball.setPosition(450-d, 765-d, 100);
+		bx = 450 - d;
+		by = 765 - d;
+		bz = 100;
 	}
 }
 

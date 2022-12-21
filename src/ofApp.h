@@ -58,6 +58,9 @@ class ofApp : public ofBaseApp{
     //3d Modell cup laden
 	int cupNr = 10;
 	int cupRad = 300; //for scale 0.3: 225; for scale 0.5: 375
+	int bx = 0;
+	int by = 0;
+	int bz = 100;
 	ofxAssimpModelLoader cup[10];
 	ofxAssimpModelLoader ball;
 	ofxAssimpModelLoader table;
