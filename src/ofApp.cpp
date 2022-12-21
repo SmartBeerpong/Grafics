@@ -7,15 +7,14 @@ void ofApp::setup(){
     gui.setup();
 	ofDisableAlphaBlending();
 	ofEnableDepthTest();
-	//ofDisableArbTex();	
     
     //3d Modelle laden
 	for (int i = 0; i < cupNr; i++) cup[i].loadModel("Cup.3ds", 200);
 	ball.loadModel("ball.stl");
 	table.loadModel("table.stl");
 
-	ball.setPosition(ofxVec3Slider_position_sphere->x, ofxVec3Slider_position_sphere->y, ofxVec3Slider_position_sphere->z * 10);
-
+	ball.setPosition((float)bx, (float)by, (float)bz);
+	
 
 	//textur
 	//ofLoadImage(tex, "tableTex.png");
@@ -24,10 +23,6 @@ void ofApp::setup(){
 	//Habe ein paar Schieber rausgenommen, da die Objekte nicht mehr verändert werden
 	gui.add(vec3Slider_light.setup("Light Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(), 100)));
 	gui.add(ofxVec3Slider_position_sphere.setup("Sphere Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(ofGetWidth(), ofGetHeight(),100)));
-	//gui.add(ofxFloatSlider_table.setup("Tables Scale",6,3,8));
-		//gui.add(ofxVec3Slider_position_table.setup("Table Position", ofVec3f(0, 0, 0), ofVec3f(0, 0, 0), ofVec3f(0,0,0)));
-		//gui.add(ofxVec2Slider_position.setup("Cup Position", ofVec2f(0,0), ofVec2f(0,0), ofVec2f(ofGetWidth(), ofGetHeight())));
-		//gui.add(ofxVec3Slider_cam.setup("Cam Pos", ofVec3f(0,0, 0), ofVec3f(0,0, 0), ofVec3f(0,0, 0)));
 
 	//CAMERA SETUPs
 		//camera.enableOrtho();
@@ -64,7 +59,6 @@ void ofApp::update(){
 
 	if(bz > -100)	bz -= 4;
 
-	
 }
 
 //--------------------------------------------------------------
@@ -80,11 +74,6 @@ void ofApp::draw(){
 	for (int i = 0; i < cupNr; i++) cup[i].drawFaces();
 	table.drawFaces();
 	ball.drawFaces();
-
-	//texture
-	//tex.bind();
-	//sphere.draw();
-	//tex.unbind();
 
     
 	//
@@ -126,16 +115,12 @@ void ofApp::draw(){
 	ball.setScale(0.15, 0.15, 0.15);
 	table.setScale(6, 6, 6);
 
-    //Color slider init
-    ofSetColor(ofxVec4Slider_color->x, ofxVec4Slider_color->y, ofxVec4Slider_color->z, ofxVec4Slider_color->w);
-    
     //draw light position
     light.setPosition(vec3Slider_light->x, vec3Slider_light->y, vec3Slider_light->z);
 	
 	//was man einschaltet, muss man auch wieder ausschalten, sonst spinnt alles
 	camera.end();
     light.disable();
-    //ofDisableDepthTest();
     
 }
 
@@ -164,6 +149,7 @@ void ofApp::keyPressed(int key){
 		bx = 0-d;
 		by = 0-d;
 		bz = 100;
+		
 	}
 
 	if (key == '2') {
