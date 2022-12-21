@@ -14,6 +14,29 @@ void ofApp::setup(){
 	table.loadModel("table.stl");
 
 	ball.setPosition((float)bx, (float)by, (float)bz);
+
+	int buildCount = 0;
+
+
+	//4er Reihe
+	for (int i = 0; i < 4; i++) {
+		cup[buildCount].setPosition((i*cupRad), 0, 100);
+		buildCount++;
+	}
+	//3er Reihe
+	for (int i = 0; i < 3; i++) {
+		cup[buildCount].setPosition((0.5*cupRad) + (i*cupRad), (0.85*cupRad), 100);
+		buildCount++;
+	}
+	//2er Reihe
+	for (int i = 0; i < 2; i++) {
+		cup[buildCount].setPosition((i*cupRad) + cupRad, (2 * (0.85*cupRad)), 100);
+		buildCount++;
+	}
+	//letzter
+	cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3 * (0.85*cupRad)), 100);
+
+
 	
 
 	//textur
@@ -75,45 +98,19 @@ void ofApp::draw(){
 	table.drawFaces();
 	ball.drawFaces();
 
-    
-	//
-	//POSITION OBJECTS - START
-	//
-			
-		int buildCount = 0;
-	
-		//4er Reihe
-		for (int i = 0; i < 4; i++) {	
-			cup[buildCount].setPosition((i*cupRad), 0, 100);
-			buildCount++;
-		}
-		//3er Reihe
-		for (int i = 0; i < 3; i++) {
-			cup[buildCount].setPosition((0.5*cupRad) + (i*cupRad), (0.85*cupRad), 100);
-			buildCount++;
-		}
-		//2er Reihe
-		for (int i = 0; i < 2; i++) {
-			cup[buildCount].setPosition((i*cupRad) + cupRad, (2 * (0.85*cupRad)), 100);
-			buildCount++;
-		}
-		//letzter
-		cup[buildCount].setPosition((0.5*cupRad) + cupRad, (3 * (0.85*cupRad)), 100);
+	//ball Position - dynamisch durch Schieber
+	table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
+	table.setRotation(1, 90, 0, 0, 90);
 
-		//ball Position - dynamisch durch Schieber
-		table.setPosition(325, 2475, -1450); // X: +nach rechts, -nach links; Y: +zu dir, -zum Gegner; Z: -nach unten, +nach oben
-		table.setRotation(1, 90, 0, 0, 90);
-
-		ball.setPosition(bx, by, bz);
-
-	//
-	//POSITION OBJECTS - END
-	//
+	ball.setPosition(bx, by, bz);
 	
 	//scale objects
 	for (int i = 0; i < cupNr; i++) cup[i].setScale(0.4, 0.4, 0.4);
 	ball.setScale(0.15, 0.15, 0.15);
 	table.setScale(6, 6, 6);
+
+
+
 
     //draw light position
     light.setPosition(vec3Slider_light->x, vec3Slider_light->y, vec3Slider_light->z);
@@ -149,7 +146,7 @@ void ofApp::keyPressed(int key){
 		bx = 0-d;
 		by = 0-d;
 		bz = 100;
-		
+		//cup[0].setPosition(-1000, by, bx);
 	}
 
 	if (key == '2') {

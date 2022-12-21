@@ -55,12 +55,14 @@ class ofApp : public ofBaseApp{
 	int cornerIndex = 0;
 	
     
-    //3d Modell cup laden
+    //3d Modell
 	int cupNr = 10;
 	int cupRad = 300; //for scale 0.3: 225; for scale 0.5: 375
 	int bx = 0;
 	int by = 0;
 	int bz = 100;
+	int kee = 0;
+	bool end;
 	ofxAssimpModelLoader cup[10];
 	ofxAssimpModelLoader ball;
 	ofxAssimpModelLoader table;
