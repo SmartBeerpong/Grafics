@@ -66,7 +66,7 @@ void ofApp::setupArduino(const int & version) {
 	//TESTING
 	serial.setup("COM3", 115200);
 	serial.isInitialized();
-	//serial.readBytes;
+	//serial.readByte;
 
 	//listener for arduino removed
 	ofRemoveListener(arduino.EInitialized, this, &ofApp::setupArduino);
