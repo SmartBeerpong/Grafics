@@ -127,7 +127,6 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
     //screenshots durch enter
     if (key == ' ') {
         snapped = true;
